@@ -58,6 +58,7 @@ class ApiClient {
     productId: string,
     colorCode: string,
     storageCode: string,
+    quantity: number = 1,
   ): Promise<CartResponse> {
     try {
       const response = await fetch(`${API_BASE_URL}/cart`, {
@@ -69,6 +70,7 @@ class ApiClient {
           id: productId,
           colorCode,
           storageCode,
+          quantity,
         }),
       });
 

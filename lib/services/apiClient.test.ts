@@ -91,4 +91,53 @@ describe('ApiClient', () => {
       expect(global.fetch).not.toHaveBeenCalled();
     });
   });
+
+  describe('addToCart', () => {
+    it('should add a product to cart with quantity', async () => {
+      const mockResponse = { count: 5 };
+
+      (global.fetch as jest.Mock).mockResolvedValue({
+        ok: true,
+        json: async () => mockResponse,
+      });
+
+      const response = await apiClient.addToCart(
+        '123',
+        'default',
+        'default',
+        2,
+      );
+
+      expect(response).toEqual(mockResponse);
+      expect(global.fetch).toHaveBeenCalledWith('/api/cart', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          id: '123',
+          colorCode: 'default',
+          storageCode: 'default',
+          quantity: 2,
+        }),
+      });
+    });
+
+    it('should throw an error when adding to cart fails', async () => {
+      (global.fetch as jest.Mock).mockResolvedValue({
+        ok: false,
+        status: 500,
+      });
+
+      const consoleSpy = jest
+        .spyOn(console, 'error')
+        .mockImplementation(() => {});
+
+      await expect(
+        apiClient.addToCart('123', 'default', 'default', 1),
+      ).rejects.toThrow('API error: 500');
+
+      consoleSpy.mockRestore();
+    });
+  });
 });

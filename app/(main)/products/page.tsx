@@ -51,7 +51,7 @@ const ProductsPage = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-      <Header title="Productos" showBreadcrumb={false} />
+      <Header title="Productos" />
 
       <main className="mx-auto max-w-7xl px-4 py-8">
         <div className="mb-8">

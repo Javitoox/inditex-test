@@ -24,7 +24,7 @@ describe('Header Component', () => {
     expect(screen.getByText('📱')).toBeInTheDocument();
   });
 
-  it('should show the breadcrumb when not on home and has a title', () => {
+  it('should show the breadcrumb on all pages', () => {
     (usePathname as jest.Mock).mockReturnValue('/products/123');
 
     render(<Header title="Detalles del Producto" />);
@@ -33,12 +33,22 @@ describe('Header Component', () => {
     expect(screen.getByText('Detalles del Producto')).toBeInTheDocument();
   });
 
-  it('should not show the breadcrumb on the home page', () => {
+  it('should show breadcrumb on home page with Productos label', () => {
     (usePathname as jest.Mock).mockReturnValue('/products');
 
-    render(<Header title="Productos" />);
+    render(<Header />);
 
-    expect(screen.queryByText('Inicio')).not.toBeInTheDocument();
+    expect(screen.getByText('Inicio')).toBeInTheDocument();
+    expect(screen.getByText('Productos')).toBeInTheDocument();
+  });
+
+  it('should show breadcrumb on cart page', () => {
+    (usePathname as jest.Mock).mockReturnValue('/cart');
+
+    render(<Header />);
+
+    expect(screen.getByText('Inicio')).toBeInTheDocument();
+    expect(screen.getByText('Carrito')).toBeInTheDocument();
   });
 
   it('should show the cart link', () => {

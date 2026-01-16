@@ -3,7 +3,7 @@ export async function POST(request: Request) {
     const body = await request.json();
 
     const response = await fetch(
-      'https://itx-frontend-test.omrender.com/api/cart',
+      'https://itx-frontend-test.onrender.com/api/cart',
       {
         method: 'POST',
         headers: {

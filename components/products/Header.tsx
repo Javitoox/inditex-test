@@ -7,14 +7,26 @@ import { useCart } from '@/app/providers/CartProvider';
 
 interface HeaderProps {
   title?: string;
-  showBreadcrumb?: boolean;
 }
 
-export const Header = ({ title, showBreadcrumb = true }: HeaderProps) => {
+export const Header = ({ title }: HeaderProps) => {
   const { count } = useCart();
   const pathname = usePathname();
 
-  const isHome = pathname === '/products' || pathname === '/';
+  const getBreadcrumbLabel = () => {
+    if (pathname === '/' || pathname === '/products') {
+      return 'Productos';
+    }
+    if (pathname === '/cart') {
+      return 'Carrito';
+    }
+    if (pathname.startsWith('/products/')) {
+      return title || 'Detalle del Producto';
+    }
+    return 'Inicio';
+  };
+
+  const isHome = pathname === '/' || pathname === '/products';
 
   return (
     <header className="border-b border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-900">
@@ -31,18 +43,18 @@ export const Header = ({ title, showBreadcrumb = true }: HeaderProps) => {
             </Link>
           </div>
 
-          {showBreadcrumb && !isHome && title && (
-            <nav className="text-sm text-gray-600 dark:text-gray-400">
-              <Link
-                href="/"
-                className="text-blue-600 hover:text-blue-700 dark:text-blue-400"
-              >
-                Inicio
-              </Link>
-              <span className="mx-2">/</span>
-              <span className="text-gray-900 dark:text-white">{title}</span>
-            </nav>
-          )}
+          <nav className="text-sm text-gray-600 dark:text-gray-400">
+            <Link
+              href="/products"
+              className="text-blue-600 hover:text-blue-700 dark:text-blue-400"
+            >
+              Inicio
+            </Link>
+            <span className="mx-2">/</span>
+            <span className="text-gray-900 dark:text-white">
+              {getBreadcrumbLabel()}
+            </span>
+          </nav>
 
           <div className="flex items-center gap-4">
             <Link

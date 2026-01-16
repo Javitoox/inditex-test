@@ -4,7 +4,6 @@ import { useCallback, useState } from 'react';
 import toast from 'react-hot-toast';
 
 import { useCart } from '@/app/providers/CartProvider';
-import apiClient from '@/lib/services/apiClient';
 import type { Product } from '@/lib/types/product';
 
 interface ProductActionsProps {
@@ -12,19 +11,21 @@ interface ProductActionsProps {
 }
 
 export const ProductActions = ({ product }: ProductActionsProps) => {
-  const { setCount } = useCart();
+  const { addItem } = useCart();
   const [quantity, setQuantity] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
 
   const handleAddToCart = useCallback(async () => {
     setIsLoading(true);
     try {
-      const response = await apiClient.addToCart(
-        product.id,
-        'default',
-        'default',
-      );
-      setCount(response.count);
+      addItem({
+        id: product.id,
+        brand: product.brand,
+        model: product.model,
+        quantity,
+        price: product.price,
+        imgUrl: product.imgUrl,
+      });
       toast.success('Producto añadido al carrito');
     } catch (error) {
       console.error('Error adding to cart:', error);
@@ -32,7 +33,15 @@ export const ProductActions = ({ product }: ProductActionsProps) => {
     } finally {
       setIsLoading(false);
     }
-  }, [product.id, setCount]);
+  }, [
+    product.id,
+    product.brand,
+    product.model,
+    product.price,
+    product.imgUrl,
+    quantity,
+    addItem,
+  ]);
 
   return (
     <div className="space-y-4">
