@@ -67,7 +67,7 @@ const ProductsPage = () => {
         {isLoading && (
           <div className="flex items-center justify-center py-12">
             <div className="text-center">
-              <div className="animate-spin inline-block h-8 w-8 rounded-full border-4 border-gray-300 border-t-blue-600"></div>
+              <div className="animate-spin inline-block h-8 w-8 rounded-full border-4 border-gray-300 border-t-gray-900 dark:border-t-white"></div>
               <p className="mt-4 text-gray-600 dark:text-gray-400">
                 Cargando productos...
               </p>

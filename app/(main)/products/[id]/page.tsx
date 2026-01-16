@@ -59,7 +59,7 @@ const ProductDetailPage = ({ params }: ProductDetailPageProps) => {
         <main className="mx-auto max-w-7xl px-4 py-8">
           <div className="flex items-center justify-center py-12">
             <div className="text-center">
-              <div className="animate-spin inline-block h-8 w-8 rounded-full border-4 border-gray-300 border-t-blue-600"></div>
+              <div className="animate-spin inline-block h-8 w-8 rounded-full border-4 border-gray-300 border-t-gray-900 dark:border-t-white"></div>
               <p className="mt-4 text-gray-600 dark:text-gray-400">
                 Cargando detalles...
               </p>
@@ -80,7 +80,7 @@ const ProductDetailPage = ({ params }: ProductDetailPageProps) => {
           </div>
           <Link
             href="/products"
-            className="mt-4 inline-block text-blue-600 hover:text-blue-700 dark:text-blue-400"
+            className="mt-4 inline-block text-gray-900 hover:text-gray-700 dark:text-white dark:hover:text-gray-200"
           >
             Volver a productos
           </Link>
@@ -97,7 +97,7 @@ const ProductDetailPage = ({ params }: ProductDetailPageProps) => {
         <div className="mb-6">
           <Link
             href="/products"
-            className="text-blue-600 hover:text-blue-700 dark:text-blue-400"
+            className="text-gray-900 hover:text-gray-700 dark:text-white dark:hover:text-gray-200"
           >
             ← Volver a productos
           </Link>

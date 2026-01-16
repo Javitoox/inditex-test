@@ -7,16 +7,17 @@
 :root {
   --text-body: #555;
   --detail-high-contrast: #dddddd;
-
   --scrollbar-bg: #dddddd;
   --scrollbar-thumb: #888;
   --scrollbar-thumb-hover: #555;
 }
 
-.dark {
-  --scrollbar-bg: #333;
-  --scrollbar-thumb: #555;
-  --scrollbar-thumb-hover: #888;
+html {
+  background-color: #fcfcf7;
+}
+
+body {
+  background-color: #fcfcf7;
 }
 
 input[type='number'] {
@@ -32,18 +33,6 @@ input[type='number']::-webkit-inner-spin-button {
 input[type='number']::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
-}
-
-html,
-body {
-  position: relative;
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  background-image: var(--background-image);
-  overflow: auto;
-  background-size: cover;
-  background-position: center;
 }
 
 ::-webkit-scrollbar {

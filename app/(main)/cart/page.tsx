@@ -30,7 +30,7 @@ const CartPage = () => {
             </p>
             <Link
               href="/products"
-              className="rounded-lg bg-blue-600 px-6 py-3 font-semibold text-white hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-800"
+              className="rounded-lg bg-gray-900 px-6 py-3 font-semibold text-white hover:bg-gray-800 dark:bg-white dark:text-gray-900 dark:hover:bg-gray-200"
             >
               Volver a productos
             </Link>
@@ -47,7 +47,7 @@ const CartPage = () => {
         <div className="mb-6">
           <Link
             href="/products"
-            className="text-blue-600 hover:text-blue-700 dark:text-blue-400"
+            className="text-gray-900 hover:text-gray-700 dark:text-white dark:hover:text-gray-200"
           >
             ← Volver a productos
           </Link>
@@ -139,7 +139,7 @@ const CartPage = () => {
               <span>${total.toFixed(2)}</span>
             </div>
 
-            <button className="mb-3 w-full rounded-lg bg-blue-600 px-6 py-3 font-semibold text-white hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-800">
+            <button className="mb-3 w-full rounded-lg bg-gray-900 px-6 py-3 font-semibold text-white hover:bg-gray-800 dark:bg-white dark:text-gray-900 dark:hover:bg-gray-200">
               Proceder al pago
             </button>
 

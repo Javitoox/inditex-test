@@ -29,7 +29,7 @@ export const Item = ({ product }: ItemProps) => {
           <h3 className="truncate text-lg font-bold text-gray-900 dark:text-white">
             {product.model}
           </h3>
-          <p className="mt-2 text-xl font-bold text-blue-600">
+          <p className="mt-2 text-xl font-bold text-gray-900 dark:text-white">
             ${product.price.toLocaleString('es-ES')}
           </p>
         </div>

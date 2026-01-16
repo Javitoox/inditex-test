@@ -4,7 +4,7 @@ Aplicación de e-commerce SPA (Single Page Application) desarrollada con **Next.
 
 ## Requisitos Previos
 
-- Node.js 18+ 
+- Node.js 18+
 - npm o yarn
 
 ## Instalación

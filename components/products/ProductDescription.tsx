@@ -27,7 +27,7 @@ export const ProductDescription = ({ product }: ProductDescriptionProps) => {
         <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
           {product.brand} {product.model}
         </h1>
-        <p className="mt-2 text-2xl font-bold text-blue-600">
+        <p className="mt-2 text-2xl font-bold text-gray-900 dark:text-white">
           ${product.price.toLocaleString('es-ES')}
         </p>
       </div>

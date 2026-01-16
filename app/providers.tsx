@@ -13,7 +13,11 @@ const Providers = ({ children }: PropsWithChildren) => {
 
   return (
     <HeroUIProvider navigate={router.push}>
-      <NextThemesProvider attribute="class" defaultTheme="system">
+      <NextThemesProvider
+        attribute="class"
+        defaultTheme="light"
+        forcedTheme="light"
+      >
         <CartProvider>
           {children}
           <ToastProvider />

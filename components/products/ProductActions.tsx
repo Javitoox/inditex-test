@@ -128,7 +128,7 @@ export const ProductActions = ({ product }: ProductActionsProps) => {
                 setSelectedColorName(color.name);
               }
             }}
-            className="mt-2 w-full rounded-lg border border-gray-300 bg-white px-4 py-2 text-gray-900 focus:border-blue-500 focus:outline-none dark:border-gray-600 dark:bg-gray-800 dark:text-white"
+            className="mt-2 w-full rounded-lg border border-gray-300 bg-white px-4 py-2 text-gray-900 focus:border-gray-500 focus:outline-none dark:border-gray-600 dark:bg-gray-800 dark:text-white"
           >
             {product.options.colors.map((color, index) => (
               <option key={`color-${color.code}-${index}`} value={color.code}>
@@ -157,7 +157,7 @@ export const ProductActions = ({ product }: ProductActionsProps) => {
                 );
               }
             }}
-            className="mt-2 w-full rounded-lg border border-gray-300 bg-white px-4 py-2 text-gray-900 focus:border-blue-500 focus:outline-none dark:border-gray-600 dark:bg-gray-800 dark:text-white"
+            className="mt-2 w-full rounded-lg border border-gray-300 bg-white px-4 py-2 text-gray-900 focus:border-gray-500 focus:outline-none dark:border-gray-600 dark:bg-gray-800 dark:text-white"
           >
             {product.options.storages.map((storage, index) => (
               <option
@@ -203,7 +203,7 @@ export const ProductActions = ({ product }: ProductActionsProps) => {
       <button
         onClick={handleAddToCart}
         disabled={isLoading}
-        className="w-full rounded-lg bg-blue-600 px-6 py-3 font-semibold text-white transition-colors hover:bg-blue-700 disabled:opacity-50 dark:bg-blue-700 dark:hover:bg-blue-800"
+        className="w-full rounded-lg bg-gray-900 px-6 py-3 font-semibold text-white transition-colors hover:bg-gray-800 disabled:opacity-50 dark:bg-white dark:text-gray-900 dark:hover:bg-gray-200"
       >
         {isLoading ? 'Añadiendo...' : 'Añadir al carrito'}
       </button>
