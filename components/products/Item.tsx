@@ -15,7 +15,7 @@ export const Item = ({ product }: ItemProps) => {
       <div className="group cursor-pointer overflow-hidden rounded-lg border border-gray-200 transition-all hover:shadow-lg dark:border-gray-700">
         <div className="relative aspect-square overflow-hidden bg-gray-100 dark:bg-gray-800">
           <Image
-            src={product.image}
+            src={product.imgUrl}
             alt={`${product.brand} ${product.model}`}
             fill
             className="object-cover transition-transform group-hover:scale-105"

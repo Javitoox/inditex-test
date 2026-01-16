@@ -13,7 +13,7 @@ export interface Product {
   brand: string;
   model: string;
   price: number;
-  image: string;
+  imgUrl: string;
   cpu: string;
   ram: string;
   os: string;

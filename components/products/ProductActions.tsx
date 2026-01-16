@@ -13,26 +13,16 @@ interface ProductActionsProps {
 
 export const ProductActions = ({ product }: ProductActionsProps) => {
   const { setCount } = useCart();
-  const [selectedColor, setSelectedColor] = useState(
-    product.colors[0]?.code || '',
-  );
-  const [selectedStorage, setSelectedStorage] = useState(
-    product.storages[0]?.code || '',
-  );
+  const [quantity, setQuantity] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
 
   const handleAddToCart = useCallback(async () => {
-    if (!selectedColor || !selectedStorage) {
-      toast.error('Por favor selecciona color y almacenamiento');
-      return;
-    }
-
     setIsLoading(true);
     try {
       const response = await apiClient.addToCart(
         product.id,
-        selectedColor,
-        selectedStorage,
+        'default',
+        'default',
       );
       setCount(response.count);
       toast.success('Producto añadido al carrito');
@@ -42,42 +32,37 @@ export const ProductActions = ({ product }: ProductActionsProps) => {
     } finally {
       setIsLoading(false);
     }
-  }, [product.id, selectedColor, selectedStorage, setCount]);
+  }, [product.id, setCount]);
 
   return (
     <div className="space-y-4">
       <div>
         <label className="block text-sm font-medium text-gray-900 dark:text-white">
-          Color
+          Cantidad
         </label>
-        <select
-          value={selectedColor}
-          onChange={(e) => setSelectedColor(e.target.value)}
-          className="mt-2 w-full rounded-lg border border-gray-300 bg-white px-4 py-2 text-gray-900 focus:border-blue-500 focus:outline-none dark:border-gray-600 dark:bg-gray-800 dark:text-white"
-        >
-          {product.colors.map((color) => (
-            <option key={color.code} value={color.code}>
-              {color.name}
-            </option>
-          ))}
-        </select>
-      </div>
-
-      <div>
-        <label className="block text-sm font-medium text-gray-900 dark:text-white">
-          Almacenamiento
-        </label>
-        <select
-          value={selectedStorage}
-          onChange={(e) => setSelectedStorage(e.target.value)}
-          className="mt-2 w-full rounded-lg border border-gray-300 bg-white px-4 py-2 text-gray-900 focus:border-blue-500 focus:outline-none dark:border-gray-600 dark:bg-gray-800 dark:text-white"
-        >
-          {product.storages.map((storage) => (
-            <option key={storage.code} value={storage.code}>
-              {storage.capacity}GB
-            </option>
-          ))}
-        </select>
+        <div className="mt-2 flex items-center gap-2">
+          <button
+            onClick={() => setQuantity(Math.max(1, quantity - 1))}
+            className="rounded-lg border border-gray-300 px-3 py-2 text-gray-900 hover:bg-gray-100 dark:border-gray-600 dark:text-white dark:hover:bg-gray-700"
+          >
+            -
+          </button>
+          <input
+            type="number"
+            value={quantity}
+            onChange={(e) =>
+              setQuantity(Math.max(1, parseInt(e.target.value) || 1))
+            }
+            className="w-16 rounded-lg border border-gray-300 px-3 py-2 text-center text-gray-900 dark:border-gray-600 dark:bg-gray-800 dark:text-white"
+            min="1"
+          />
+          <button
+            onClick={() => setQuantity(quantity + 1)}
+            className="rounded-lg border border-gray-300 px-3 py-2 text-gray-900 hover:bg-gray-100 dark:border-gray-600 dark:text-white dark:hover:bg-gray-700"
+          >
+            +
+          </button>
+        </div>
       </div>
 
       <button

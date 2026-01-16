@@ -106,7 +106,7 @@ const ProductDetailPage = ({ params }: ProductDetailPageProps) => {
         <div className="grid gap-8 md:grid-cols-2">
           <div>
             <ProductImage
-              src={product.image}
+              src={product.imgUrl}
               alt={`${product.brand} ${product.model}`}
             />
           </div>

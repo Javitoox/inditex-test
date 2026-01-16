@@ -11,11 +11,13 @@ export async function GET(request: Request) {
     }
 
     const response = await fetch(
-      `https://itx-frontend-test.omrender.com/api/product/${id}`,
+      `https://itx-frontend-test.onrender.com/api/product/${id}`,
       {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
+          Accept: 'application/json',
+          'User-Agent': 'Mozilla/5.0',
         },
       },
     );
