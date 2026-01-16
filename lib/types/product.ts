@@ -1,11 +1,17 @@
 export interface ProductColor {
-  code: string;
+  code: number | string;
   name: string;
 }
 
 export interface ProductStorage {
-  code: string;
-  capacity: number;
+  code: number | string;
+  name?: string;
+  capacity?: number;
+}
+
+export interface ProductOptions {
+  colors?: ProductColor[];
+  storages?: ProductStorage[];
 }
 
 export interface Product {
@@ -22,8 +28,21 @@ export interface Product {
   cameras: string;
   dimensions: string;
   weight: string;
-  colors: ProductColor[];
-  storages: ProductStorage[];
+  options?: ProductOptions;
+}
+
+export interface CartItemDetail {
+  _id: string; // ID único para cada entrada en el carrito
+  id: string;
+  brand: string;
+  model: string;
+  quantity: number;
+  price: number;
+  imgUrl: string;
+  colorCode?: number | string;
+  colorName?: string;
+  storageCode?: number | string;
+  storageName?: string;
 }
 
 export interface CartItem {

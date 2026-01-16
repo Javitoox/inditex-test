@@ -7,12 +7,17 @@ import { Header } from '@/components/products/Header';
 import { useCart } from '@/app/providers/CartProvider';
 
 const CartPage = () => {
-  const { items, removeItem, clearCart } = useCart();
+  const { items, removeItem, clearCart, decrementCount } = useCart();
 
   const total = items.reduce(
     (sum, item) => sum + item.price * item.quantity,
     0,
   );
+
+  const handleRemoveItem = (itemId: string) => {
+    removeItem(itemId);
+    decrementCount();
+  };
 
   if (items.length === 0) {
     return (
@@ -53,7 +58,7 @@ const CartPage = () => {
             <div className="space-y-4">
               {items.map((item) => (
                 <div
-                  key={item.id}
+                  key={item._id}
                   className="flex gap-4 rounded-lg border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800"
                 >
                   <div className="relative h-24 w-24 flex-shrink-0 overflow-hidden rounded-lg bg-gray-100 dark:bg-gray-700">
@@ -74,9 +79,28 @@ const CartPage = () => {
                       <h3 className="text-lg font-bold text-gray-900 dark:text-white">
                         {item.model}
                       </h3>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">
-                        Cantidad: {item.quantity}
-                      </p>
+                      <div className="mt-2 space-y-1 text-sm text-gray-600 dark:text-gray-400">
+                        {item.colorName && (
+                          <p>
+                            Color:{' '}
+                            <span className="font-semibold">
+                              {item.colorName}
+                            </span>
+                          </p>
+                        )}
+                        {item.storageName && (
+                          <p>
+                            Almacenamiento:{' '}
+                            <span className="font-semibold">
+                              {item.storageName}
+                            </span>
+                          </p>
+                        )}
+                        <p>
+                          Cantidad:{' '}
+                          <span className="font-semibold">{item.quantity}</span>
+                        </p>
+                      </div>
                     </div>
                     <p className="text-lg font-semibold text-gray-900 dark:text-white">
                       ${(item.price * item.quantity).toFixed(2)}
@@ -84,7 +108,7 @@ const CartPage = () => {
                   </div>
 
                   <button
-                    onClick={() => removeItem(item.id)}
+                    onClick={() => handleRemoveItem(item._id)}
                     className="self-start rounded-lg bg-red-100 px-3 py-2 text-sm font-medium text-red-600 hover:bg-red-200 dark:bg-red-900 dark:text-red-200 dark:hover:bg-red-800"
                   >
                     Eliminar

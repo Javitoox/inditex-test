@@ -7,23 +7,16 @@ import {
   useState,
   type PropsWithChildren,
 } from 'react';
-
-export interface CartItemDetail {
-  id: string;
-  brand: string;
-  model: string;
-  quantity: number;
-  price: number;
-  imgUrl: string;
-}
+import type { CartItemDetail } from '@/lib/types/product';
 
 interface CartContextType {
   count: number;
-  setCount: (count: number) => void;
   items: CartItemDetail[];
   addItem: (item: CartItemDetail) => void;
-  removeItem: (id: string) => void;
+  removeItem: (itemKey: string) => void;
   clearCart: () => void;
+  setCount: (countOrUpdater: number | ((prev: number) => number)) => void;
+  decrementCount: () => void;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -31,14 +24,17 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 export const CartProvider = ({ children }: PropsWithChildren) => {
   const [items, setItems] = useState<CartItemDetail[]>([]);
   const [isHydrated, setIsHydrated] = useState(false);
-
-  const count = items.reduce((sum, item) => sum + item.quantity, 0);
+  const [count, setCountState] = useState(0);
 
   useEffect(() => {
     try {
       const storedItems = localStorage.getItem('cart_items');
+      const storedCount = localStorage.getItem('cart_count');
       if (storedItems) {
         setItems(JSON.parse(storedItems));
+      }
+      if (storedCount) {
+        setCountState(parseInt(storedCount, 10));
       }
     } catch (error) {
       console.error('Error loading cart:', error);
@@ -50,39 +46,38 @@ export const CartProvider = ({ children }: PropsWithChildren) => {
     if (isHydrated) {
       try {
         localStorage.setItem('cart_items', JSON.stringify(items));
+        localStorage.setItem('cart_count', String(count));
       } catch (error) {
         console.error('Error saving cart:', error);
       }
     }
-  }, [isHydrated, items]);
+  }, [isHydrated, items, count]);
 
   const addItem = (item: CartItemDetail) => {
-    setItems((prevItems) => {
-      const existing = prevItems.find((i) => i.id === item.id);
-      if (existing) {
-        return prevItems.map((i) =>
-          i.id === item.id ? { ...i, quantity: i.quantity + item.quantity } : i,
-        );
-      }
-      return [...prevItems, item];
-    });
+    setItems((prevItems) => [...prevItems, item]);
   };
 
-  const removeItem = (id: string) => {
-    setItems((prevItems) => prevItems.filter((i) => i.id !== id));
+  const removeItem = (itemId: string) => {
+    setItems((prevItems) => prevItems.filter((i) => i._id !== itemId));
   };
 
   const clearCart = () => {
     setItems([]);
+    setCountState(0);
+  };
+
+  const decrementCount = () => {
+    setCountState((prev) => Math.max(0, prev - 1));
   };
 
   const value: CartContextType = {
     count,
-    setCount: () => {},
     items,
     addItem,
     removeItem,
     clearCart,
+    setCount: setCountState,
+    decrementCount,
   };
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
