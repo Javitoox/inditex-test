@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { Header } from '@/components/products/Header';
 import { Item } from '@/ui/CardItem';
 import { Search } from '@/ui/Search';
+import { LoadingSpinner } from '@/ui/LoadingSpinner';
 import apiClient from '@/lib/services/apiClient';
 import type { Product } from '@/lib/types/product';
 
@@ -64,16 +65,7 @@ const ProductsPage = () => {
           </div>
         )}
 
-        {isLoading && (
-          <div className="flex items-center justify-center py-12">
-            <div className="text-center">
-              <div className="animate-spin inline-block h-8 w-8 rounded-full border-4 border-gray-300 border-t-gray-900 dark:border-t-white"></div>
-              <p className="mt-4 text-gray-600 dark:text-gray-400">
-                Cargando productos...
-              </p>
-            </div>
-          </div>
-        )}
+        {isLoading && <LoadingSpinner label="Cargando productos..." />}
 
         {!isLoading && !error && (
           <>

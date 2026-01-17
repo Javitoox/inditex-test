@@ -21,6 +21,7 @@ import { Header } from '@/components/products/Header';
 import { ProductActions } from '@/components/products/ProductActions';
 import { ProductDescription } from '@/components/products/ProductDescription';
 import { ProductImage } from '@/components/products/ProductImage';
+import { LoadingSpinner } from '@/ui/LoadingSpinner';
 import apiClient from '@/lib/services/apiClient';
 import type { Product } from '@/lib/types/product';
 
@@ -57,14 +58,7 @@ const ProductDetailPage = ({ params }: ProductDetailPageProps) => {
       <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
         <Header title="Detalles del Producto" />
         <main className="mx-auto max-w-7xl px-4 py-8">
-          <div className="flex items-center justify-center py-12">
-            <div className="text-center">
-              <div className="animate-spin inline-block h-8 w-8 rounded-full border-4 border-gray-300 border-t-gray-900 dark:border-t-white"></div>
-              <p className="mt-4 text-gray-600 dark:text-gray-400">
-                Cargando detalles...
-              </p>
-            </div>
-          </div>
+          <LoadingSpinner label="Cargando detalles..." />
         </main>
       </div>
     );
