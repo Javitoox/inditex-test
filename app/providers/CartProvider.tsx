@@ -2,12 +2,12 @@
 
 import {
   createContext,
+  useCallback,
   useContext,
-  useEffect,
-  useState,
   type PropsWithChildren,
 } from 'react';
 import toast from 'react-hot-toast';
+import { useCartStorage } from './hooks/useCartStorage';
 import type { CartItemDetail } from '@/lib/types/product';
 
 interface CartContextType {
@@ -23,59 +23,32 @@ interface CartContextType {
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export const CartProvider = ({ children }: PropsWithChildren) => {
-  const [items, setItems] = useState<CartItemDetail[]>([]);
-  const [isHydrated, setIsHydrated] = useState(false);
-  const [count, setCountState] = useState(0);
+  const { items, count, setItems, setCount: setCountState } = useCartStorage();
 
-  useEffect(() => {
-    try {
-      const storedItems = localStorage.getItem('cart_items');
-      const storedCount = localStorage.getItem('cart_count');
-      if (storedItems) {
-        setItems(JSON.parse(storedItems));
-      }
-      if (storedCount) {
-        const parsedCount = parseInt(storedCount, 10);
-        setCountState(Math.max(0, parsedCount));
-      } else {
-        setCountState(0);
-      }
-    } catch (error) {
-      console.error('Error loading cart:', error);
-      setCountState(0);
-    }
-    setIsHydrated(true);
-  }, []);
+  const addItem = useCallback(
+    (item: CartItemDetail) => {
+      setItems((prevItems) => [...prevItems, item]);
+    },
+    [setItems],
+  );
 
-  useEffect(() => {
-    if (isHydrated) {
-      try {
-        localStorage.setItem('cart_items', JSON.stringify(items));
-        localStorage.setItem('cart_count', String(count));
-      } catch (error) {
-        console.error('Error saving cart:', error);
-      }
-    }
-  }, [isHydrated, items, count]);
+  const removeItem = useCallback(
+    (itemId: string) => {
+      setItems((prevItems) => prevItems.filter((i) => i._id !== itemId));
+      toast.success('Producto eliminado del carrito');
+    },
+    [setItems],
+  );
 
-  const addItem = (item: CartItemDetail) => {
-    setItems((prevItems) => [...prevItems, item]);
-  };
-
-  const removeItem = (itemId: string) => {
-    setItems((prevItems) => prevItems.filter((i) => i._id !== itemId));
-    toast.success('Producto eliminado del carrito');
-  };
-
-  const clearCart = () => {
+  const clearCart = useCallback(() => {
     setItems([]);
     setCountState(0);
     toast.success('Carrito vaciado');
-  };
+  }, [setItems, setCountState]);
 
-  const decrementCount = () => {
+  const decrementCount = useCallback(() => {
     setCountState((prev) => Math.max(0, prev - 1));
-  };
+  }, [setCountState]);
 
   const value: CartContextType = {
     count,
