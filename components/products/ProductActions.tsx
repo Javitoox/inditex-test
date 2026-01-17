@@ -7,6 +7,7 @@ import { useCart } from '@/app/providers/CartProvider';
 import { ActionButton } from '@/ui/ActionButton';
 import { CustomSelect } from '@/ui/Select';
 import { QuantitySelector } from '@/ui/QuantitySelector';
+import { Message } from '@/ui/Message';
 import apiClient from '@/lib/services/apiClient';
 import type { Product } from '@/lib/types/product';
 
@@ -32,6 +33,10 @@ export const ProductActions = ({ product }: ProductActionsProps) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const handleAddToCart = useCallback(async () => {
+    if (!product.price || product.price <= 0) {
+      toast.error('Este producto no tiene precio disponible');
+      return;
+    }
     if (
       product.options?.colors &&
       product.options.colors.length > 0 &&
@@ -115,6 +120,13 @@ export const ProductActions = ({ product }: ProductActionsProps) => {
 
   return (
     <div className="space-y-4">
+      {(!product.price || product.price <= 0) && (
+        <Message
+          type="warning"
+          message="Este producto no tiene precio disponible"
+        />
+      )}
+
       {product.options?.colors && product.options.colors.length > 0 && (
         <CustomSelect
           label="Color"
@@ -169,6 +181,7 @@ export const ProductActions = ({ product }: ProductActionsProps) => {
       <ActionButton
         onClick={handleAddToCart}
         isLoading={isLoading}
+        disabled={!product.price || product.price <= 0}
         label="Añadir al carrito"
         loadingLabel="Añadiendo..."
       />
