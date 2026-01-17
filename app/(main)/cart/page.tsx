@@ -66,6 +66,7 @@ const CartPage = () => {
                       src={item.imgUrl}
                       alt={`${item.brand} ${item.model}`}
                       fill
+                      loading="eager"
                       className="object-cover"
                       sizes="100px"
                     />

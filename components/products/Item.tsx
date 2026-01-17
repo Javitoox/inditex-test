@@ -18,6 +18,7 @@ export const Item = ({ product }: ItemProps) => {
             src={product.imgUrl}
             alt={`${product.brand} ${product.model}`}
             fill
+            loading="eager"
             className="object-cover transition-transform group-hover:scale-105"
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
           />

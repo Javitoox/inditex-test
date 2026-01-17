@@ -4,6 +4,9 @@ import { useCallback, useState } from 'react';
 import toast from 'react-hot-toast';
 
 import { useCart } from '@/app/providers/CartProvider';
+import { ActionButton } from '@/ui/ActionButton';
+import { CustomSelect } from '@/ui/Select';
+import { QuantitySelector } from '@/ui/QuantitySelector';
 import apiClient from '@/lib/services/apiClient';
 import type { Product } from '@/lib/types/product';
 
@@ -113,100 +116,62 @@ export const ProductActions = ({ product }: ProductActionsProps) => {
   return (
     <div className="space-y-4">
       {product.options?.colors && product.options.colors.length > 0 && (
-        <div>
-          <label className="block text-sm font-medium text-gray-900 dark:text-white">
-            Color
-          </label>
-          <select
-            value={selectedColor ?? ''}
-            onChange={(e) => {
-              setSelectedColor(e.target.value || undefined);
-              const color = product.options?.colors?.find(
-                (c) => String(c.code) === e.target.value,
-              );
-              if (color) {
-                setSelectedColorName(color.name);
-              }
-            }}
-            className="mt-2 w-full rounded-lg border border-gray-300 bg-white px-4 py-2 text-gray-900 focus:border-gray-500 focus:outline-none dark:border-gray-600 dark:bg-gray-800 dark:text-white"
-          >
-            {product.options.colors.map((color, index) => (
-              <option key={`color-${color.code}-${index}`} value={color.code}>
-                {color.name}
-              </option>
-            ))}
-          </select>
-        </div>
+        <CustomSelect
+          label="Color"
+          value={selectedColor}
+          onChange={(value) => {
+            setSelectedColor(value);
+            const color = product.options?.colors?.find(
+              (c) => String(c.code) === String(value),
+            );
+            if (color) {
+              setSelectedColorName(color.name);
+            }
+          }}
+          options={product.options.colors.map((color) => ({
+            code: color.code,
+            label: color.name,
+          }))}
+        />
       )}
 
       {product.options?.storages && product.options.storages.length > 0 && (
-        <div>
-          <label className="block text-sm font-medium text-gray-900 dark:text-white">
-            Almacenamiento
-          </label>
-          <select
-            value={selectedStorage ?? ''}
-            onChange={(e) => {
-              setSelectedStorage(e.target.value || undefined);
-              const storage = product.options?.storages?.find(
-                (s) => String(s.code) === e.target.value,
+        <CustomSelect
+          label="Almacenamiento"
+          value={selectedStorage}
+          onChange={(value) => {
+            setSelectedStorage(value);
+            const storage = product.options?.storages?.find(
+              (s) => String(s.code) === String(value),
+            );
+            if (storage) {
+              setSelectedStorageName(
+                storage.name || `${storage.capacity}GB` || undefined,
               );
-              if (storage) {
-                setSelectedStorageName(
-                  storage.name || `${storage.capacity}GB` || undefined,
-                );
-              }
-            }}
-            className="mt-2 w-full rounded-lg border border-gray-300 bg-white px-4 py-2 text-gray-900 focus:border-gray-500 focus:outline-none dark:border-gray-600 dark:bg-gray-800 dark:text-white"
-          >
-            {product.options.storages.map((storage, index) => (
-              <option
-                key={`storage-${storage.code}-${index}`}
-                value={storage.code}
-              >
-                {storage.name || `${storage.capacity}GB`}
-              </option>
-            ))}
-          </select>
-        </div>
+            }
+          }}
+          options={product.options.storages.map((storage) => ({
+            code: storage.code,
+            label: storage.name || `${storage.capacity}GB`,
+          }))}
+        />
       )}
 
       <div>
         <label className="block text-sm font-medium text-gray-900 dark:text-white">
           Cantidad
         </label>
-        <div className="mt-2 flex items-center gap-2">
-          <button
-            onClick={() => setQuantity(Math.max(1, quantity - 1))}
-            className="rounded-lg border border-gray-300 px-3 py-2 text-gray-900 hover:bg-gray-100 dark:border-gray-600 dark:text-white dark:hover:bg-gray-700"
-          >
-            -
-          </button>
-          <input
-            type="number"
-            value={quantity}
-            onChange={(e) =>
-              setQuantity(Math.max(1, parseInt(e.target.value) || 1))
-            }
-            className="w-16 rounded-lg border border-gray-300 px-3 py-2 text-center text-gray-900 dark:border-gray-600 dark:bg-gray-800 dark:text-white"
-            min="1"
-          />
-          <button
-            onClick={() => setQuantity(quantity + 1)}
-            className="rounded-lg border border-gray-300 px-3 py-2 text-gray-900 hover:bg-gray-100 dark:border-gray-600 dark:text-white dark:hover:bg-gray-700"
-          >
-            +
-          </button>
+        <div className="mt-2">
+          <QuantitySelector value={quantity} onChange={setQuantity} />
         </div>
       </div>
 
-      <button
+      <ActionButton
         onClick={handleAddToCart}
-        disabled={isLoading}
-        className="w-full rounded-lg bg-gray-900 px-6 py-3 font-semibold text-white transition-colors hover:bg-gray-800 disabled:opacity-50 dark:bg-white dark:text-gray-900 dark:hover:bg-gray-200"
-      >
-        {isLoading ? 'Añadiendo...' : 'Añadir al carrito'}
-      </button>
+        isLoading={isLoading}
+        label="Añadir al carrito"
+        loadingLabel="Añadiendo..."
+      />
     </div>
   );
 };

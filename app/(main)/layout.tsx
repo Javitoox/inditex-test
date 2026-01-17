@@ -1,7 +1,7 @@
 import type { PropsWithChildren } from '@/lib/types/types';
 
 const MainLayout = ({ children }: PropsWithChildren) => {
-  return <>{children}</>;
+  return <div className="h-screen overflow-y-auto pt-20">{children}</div>;
 };
 
 MainLayout.displayName = 'MainLayout';
