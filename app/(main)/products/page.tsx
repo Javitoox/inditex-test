@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 
 import { Header } from '@/components/products/Header';
 import { Item } from '@/components/products/Item';
-import { Search } from '@/components/products/Search';
+import { Search } from '@/ui/Search';
 import apiClient from '@/lib/services/apiClient';
 import type { Product } from '@/lib/types/product';
 
