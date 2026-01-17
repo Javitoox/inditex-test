@@ -27,7 +27,6 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "lib/types/next-auth.d.ts",
     ".next/dev/types/**/*.ts",
     "jest.setup.js"
   ],

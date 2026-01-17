@@ -54,7 +54,6 @@ describe('ApiClient', () => {
         status: 500,
       });
 
-      // Suppress console.error for this test
       const consoleSpy = jest
         .spyOn(console, 'error')
         .mockImplementation(() => {});

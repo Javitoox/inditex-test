@@ -7,6 +7,7 @@ import {
   useState,
   type PropsWithChildren,
 } from 'react';
+import toast from 'react-hot-toast';
 import type { CartItemDetail } from '@/lib/types/product';
 
 interface CartContextType {
@@ -59,11 +60,13 @@ export const CartProvider = ({ children }: PropsWithChildren) => {
 
   const removeItem = (itemId: string) => {
     setItems((prevItems) => prevItems.filter((i) => i._id !== itemId));
+    toast.success('Producto eliminado del carrito');
   };
 
   const clearCart = () => {
     setItems([]);
     setCountState(0);
+    toast.success('Carrito vaciado');
   };
 
   const decrementCount = () => {
