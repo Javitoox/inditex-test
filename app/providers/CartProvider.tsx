@@ -35,10 +35,14 @@ export const CartProvider = ({ children }: PropsWithChildren) => {
         setItems(JSON.parse(storedItems));
       }
       if (storedCount) {
-        setCountState(parseInt(storedCount, 10));
+        const parsedCount = parseInt(storedCount, 10);
+        setCountState(Math.max(0, parsedCount));
+      } else {
+        setCountState(0);
       }
     } catch (error) {
       console.error('Error loading cart:', error);
+      setCountState(0);
     }
     setIsHydrated(true);
   }, []);

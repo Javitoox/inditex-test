@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 
 import { Header } from '@/components/products/Header';
-import { Item } from '@/components/products/Item';
+import { Item } from '@/ui/CardItem';
 import { Search } from '@/ui/Search';
 import apiClient from '@/lib/services/apiClient';
 import type { Product } from '@/lib/types/product';

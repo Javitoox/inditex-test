@@ -61,9 +61,12 @@ describe('Header Component', () => {
 
   it('should show the cart count when there are products', () => {
     (useCart as jest.Mock).mockReturnValue({ count: 3 });
+    (usePathname as jest.Mock).mockReturnValue('/products');
 
     render(<Header />);
 
-    expect(screen.getByText('3')).toBeInTheDocument();
+    const badge = screen.getByText('3');
+    expect(badge).toBeInTheDocument();
+    expect(badge).toHaveClass('bg-red-500');
   });
 });
