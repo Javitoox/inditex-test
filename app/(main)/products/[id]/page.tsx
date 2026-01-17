@@ -1,15 +1,14 @@
-/**
- * NOTA ARQUITECTÓNICA:
- * Este componente está implementado como SPA (Single Page Application) con renderizado
- * completamente en cliente ('use client') conforme a los requisitos de la prueba técnica.
- *
- * En una aplicación Next.js en PRODUCCIÓN, la mejor práctica sería:
- * - Usar renderizado en servidor (Server Components) para mejor performance y SEO
- * - Implementar SSG (Static Site Generation) para productos si son estáticos
- * - Usar Server Actions para operaciones de bases de datos
- *
- * Esta implementación CSR-only es válida para cumplir requisitos específicos de la prueba técnica,
- * pero reduciría performance en producción. Para casos reales, se recomienda Server Components.
+/*
+Este componente está implementado como SPA (Single Page Application) con renderizado
+completamente en cliente ('use client') conforme a los requisitos de la prueba técnica.
+
+En una aplicación Next.js en PRODUCCIÓN, la mejor práctica sería:
+- Usar renderizado en servidor (Server Components) para mejor performance y SEO
+- Implementar SSG (Static Site Generation) para productos si son estáticos
+- Usar Server Actions para operaciones de bases de datos
+
+Esta implementación CSR-only es válida para cumplir requisitos específicos de la prueba técnica,
+pero reduciría performance en producción. Para casos reales, se recomienda Server Components.
  */
 
 'use client';
