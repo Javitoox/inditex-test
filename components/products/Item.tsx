@@ -30,7 +30,7 @@ export const Item = ({ product }: ItemProps) => {
             {product.model}
           </h3>
           <p className="mt-2 text-xl font-bold text-gray-900 dark:text-white">
-            ${product.price.toLocaleString('es-ES')}
+            {product.price.toLocaleString('es-ES')}€
           </p>
         </div>
       </div>

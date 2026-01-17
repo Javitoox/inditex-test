@@ -10,7 +10,7 @@ export const ProductDescription = ({ product }: ProductDescriptionProps) => {
   const specs = [
     { label: 'Marca', value: product.brand },
     { label: 'Modelo', value: product.model },
-    { label: 'Precio', value: `$${product.price.toLocaleString('es-ES')}` },
+    { label: 'Precio', value: `${product.price.toLocaleString('es-ES')}€` },
     { label: 'CPU', value: product.cpu },
     { label: 'RAM', value: product.ram },
     { label: 'Sistema Operativo', value: product.os },
@@ -28,7 +28,7 @@ export const ProductDescription = ({ product }: ProductDescriptionProps) => {
           {product.brand} {product.model}
         </h1>
         <p className="mt-2 text-2xl font-bold text-gray-900 dark:text-white">
-          ${product.price.toLocaleString('es-ES')}
+          {product.price.toLocaleString('es-ES')}€
         </p>
       </div>
 

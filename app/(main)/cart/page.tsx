@@ -103,7 +103,7 @@ const CartPage = () => {
                       </div>
                     </div>
                     <p className="text-lg font-semibold text-gray-900 dark:text-white">
-                      ${(item.price * item.quantity).toFixed(2)}
+                      {(item.price * item.quantity).toFixed(2)}€
                     </p>
                   </div>
 
@@ -126,7 +126,7 @@ const CartPage = () => {
             <div className="space-y-3 border-b border-gray-200 pb-4 dark:border-gray-700">
               <div className="flex justify-between text-gray-600 dark:text-gray-400">
                 <span>Subtotal</span>
-                <span>${total.toFixed(2)}</span>
+                <span>{total.toFixed(2)}€</span>
               </div>
               <div className="flex justify-between text-gray-600 dark:text-gray-400">
                 <span>Envío</span>
@@ -136,7 +136,7 @@ const CartPage = () => {
 
             <div className="my-4 flex justify-between text-xl font-bold text-gray-900 dark:text-white">
               <span>Total</span>
-              <span>${total.toFixed(2)}</span>
+              <span>{total.toFixed(2)}€</span>
             </div>
 
             <button className="mb-3 w-full rounded-lg bg-gray-900 px-6 py-3 font-semibold text-white hover:bg-gray-800 dark:bg-white dark:text-gray-900 dark:hover:bg-gray-200">
